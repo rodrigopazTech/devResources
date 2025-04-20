@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión | DevResources</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#030712',
+                        secondary: '#00aae8',
+                        accent: '#0ea5e9',
+                        dark: '#020617',
+                        light: '#f8fafc'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-reverse': 'float-reverse 5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'float-reverse': {
+                            '0%, 100%': { transform: 'translateY(-10px)' },
+                            '50%': { transform: 'translateY(10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(90deg, #00aae8, #0ea5e9);
+        }
+        
+        .blur-circle {
+            filter: blur(80px);
+        }
+    </style>
+</head>
+<body class="bg-primary text-gray-100 font-sans antialiased overflow-x-hidden">
+    <!-- Fondo animado -->
+    <div class="fixed inset-0 overflow-hidden -z-10">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-secondary opacity-20 blur-circle animate-float"></div>
+        <div class="absolute top-1/3 right-1/4 w-80 h-80 rounded-full bg-blue-500 opacity-15 blur-circle animate-float-reverse"></div>
+        <div class="absolute bottom-1/4 right-1/3 w-72 h-72 rounded-full bg-cyan-400 opacity-10 blur-circle animate-float"></div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="min-h-screen flex flex-col justify-center py-12 px-6">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="flex justify-center items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 text-secondary">
+                    <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd" />
+                </svg>
+                <h2 class="text-3xl font-bold bg-gradient-to-r from-secondary to-cyan-400 bg-clip-text text-transparent">DevResources</h2>
+            </div>
+            <h2 class="mt-6 text-center text-2xl font-extrabold">Inicia sesión en tu cuenta</h2>
+            <p class="mt-2 text-center text-sm text-gray-400">
+                O <a href="registro.html" class="text-secondary hover:underline">regístrate aquí</a>
+            </p>
+        </div>
+
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="relative max-w-md mx-auto">
+                <!-- Efecto de gradiente exterior más pronunciado -->
+                <div class="absolute -inset-4 bg-gradient-to-r from-secondary to-cyan-500 rounded-2xl opacity-20 blur-lg"></div>
+                
+                <!-- Contenedor principal del formulario -->
+                <div class="relative bg-gray-900/80 backdrop-blur-sm rounded-xl p-8 shadow-2xl border border-gray-800">
+                    <!-- Título centrado -->
+                    <h2 class="text-2xl font-bold mb-6 text-center">Inicia sesión</h2>
+                    
+                    <!-- Formulario de login -->
+                    <form id="login-form" class="space-y-6">
+                        <!-- Campo de email -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Correo electrónico</label>
+                            <input id="email" name="email" type="email" autocomplete="email" required
+                                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+                                   placeholder="tu@email.com">
+                        </div>
+            
+                        <!-- Campo de contraseña con toggle -->
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-300 mb-1">Contraseña</label>
+                            <div class="relative">
+                                <input id="password" name="password" type="password" autocomplete="current-password" required
+                                       class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+                                       placeholder="••••••••">
+                                <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+            
+                        <!-- Recordar sesión -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input id="remember-me" name="remember-me" type="checkbox"
+                                       class="w-4 h-4 text-secondary bg-gray-800 border-gray-700 rounded focus:ring-secondary">
+                                <label for="remember-me" class="ml-2 text-sm text-gray-400">Recordar sesión</label>
+                            </div>
+                        </div>
+            
+                        <!-- Botón de submit -->
+                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-secondary to-cyan-500 rounded-lg text-white font-medium hover:opacity-90 transition-opacity">
+                            Iniciar sesión
+                        </button>
+                    </form>
+                    
+                    <!-- Enlace a registro -->
+                    <p class="mt-4 text-sm text-center text-gray-400">
+                        ¿No tienes una cuenta? <a href="registro.html" class="text-secondary hover:underline">Regístrate</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        // Importaciones de Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword,
+            setPersistence,
+            browserSessionPersistence,
+            browserLocalPersistence,
+            onAuthStateChanged,
+            sendEmailVerification
+        } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+    
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyC-rqf8SPy8GSo6WoMPJThTwUH7DfU6-3k",
+            authDomain: "devresources-7ce8b.firebaseapp.com",
+            projectId: "devresources-7ce8b",
+            storageBucket: "devresources-7ce8b.appspot.com",
+            messagingSenderId: "223004107680",
+            appId: "1:223004107680:web:d22c39c7bfaae7910dfac5",
+            measurementId: "G-7332067SNG"
+        };
+    
+        // Inicialización
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Funcion para verificar rol y estado de verificacion
+        async function checkUserAccess(user) {
+            try {
+                // Verificar email confirmado
+                if(!user.emailVerified){
+                    await sendEmailVerification(user); // Reenvia automaticamente
+                    return {verified: false, role:null};
+                }
+
+                // Obtener rol desde Firestore
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                const role = userDoc.exists() ? userDoc.data().role : "user";
+
+                return {verified: true, role};
+            } catch (error) {
+             console.error("Error verificando acceso:", error);
+             return{ verified: false, role: null};   
+            }
+        }
+
+        // Manejo de estado de autenticación
+        onAuthStateChanged(auth, async(user) => {
+            if (user) {
+                // Obtiene si ya esta verificado y su rol
+                const {verified, role} = await  checkUserAccess(user);
+
+                // Valida si ya esta verificado
+                if(!verified){
+                    window.location.href = `verify-email.html?email=${encodeURIComponent(user.email)}`;
+                    return;
+                }
+                
+                // Redirige segun su rol
+                window.location.href = role === "admin" ? 'dashboard.html' : 'dashboard-consulta.html';
+            }
+        });
+    
+        // Mostrar/ocultar contraseña
+        document.getElementById('toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            this.innerHTML = type === 'password' ? 
+                '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>' :
+                '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>';
+        });
+    
+        // Función para manejar el login
+        async function handleLogin(email, password, rememberMe) {
+            try {
+                // Configurar persistencia de sesión
+                await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
+
+                // Autenticar usuario
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Verificacion adicional
+                const {verified} = await checkUserAccess(user);
+                if(!verified){
+                    window.location.href = ``;
+                    return;
+                }
+                
+                // Redirigir al dashboard (esto ocurrirá automáticamente por onAuthStateChanged)
+            } catch (error) {
+                let errorMessage = "Error al iniciar sesión: ";
+                
+                // Mapeo de errores mejorado
+                const errorMap = {
+                    'auth/invalid-email': "Email inválido",
+                    'auth/user-disabled': "Cuenta deshabilitada",
+                    'auth/user-not-found': "Usuario no encontrado",
+                    'auth/wrong-password': "Contraseña incorrecta",
+                    'auth/too-many-requests': "Demasiados intentos. Intenta más tarde",
+                    'auth/email-not-verified': "Por favor verifica tu email primero"
+                };
+            
+                errorMessage += errorMap[error.code] || error.message;
+                throw new Error(errorMessage);
+                
+                // alert(errorMessage);
+                // throw error; // Para que el catch del formulario pueda resetear el botón
+            }
+        }
+    
+        // Evento del formulario
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('remember-me').checked;
+            
+            // Validación básica
+            if (!email || !password) {
+                showAlert('Por favor completa todos los campos', 'error');
+                return;
+            }
+            
+            // Cambiar estado del botón
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Iniciando sesión... <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+    
+            try {
+                await handleLogin(email, password, rememberMe);
+            } catch (error) {
+                showAlert(error.message, 'error');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalText;
+            }
+        });
+
+        // Función para mostrar alertas (puedes personalizarla)
+        function showAlert(message, type = 'success') {
+            // Implementa tu propio sistema de notificaciones
+            alert(message); // Ejemplo básico
+        }
+    </script>
+</body>
+</html>

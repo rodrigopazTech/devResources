@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevResources | Acceso a recursos premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#030712',
+                        secondary: '#00aae8',
+                        accent: '#0ea5e9',
+                        dark: '#020617',
+                        light: '#f8fafc'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-reverse': 'float-reverse 5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'float-reverse': {
+                            '0%, 100%': { transform: 'translateY(-10px)' },
+                            '50%': { transform: 'translateY(10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(90deg, #00aae8, #0ea5e9);
+        }
+        
+        .blur-circle {
+            filter: blur(80px);
+        }
+    </style>
+</head>
+<body class="bg-primary text-gray-100 font-sans antialiased overflow-x-hidden">
+    <!-- Fondo animado -->
+    <div class="fixed inset-0 overflow-hidden -z-10">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-secondary opacity-20 blur-circle animate-float"></div>
+        <div class="absolute top-1/3 right-1/4 w-80 h-80 rounded-full bg-blue-500 opacity-15 blur-circle animate-float-reverse"></div>
+        <div class="absolute bottom-1/4 right-1/3 w-72 h-72 rounded-full bg-cyan-400 opacity-10 blur-circle animate-float"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="container mx-auto px-6 py-6 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-secondary">
+                <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd" />
+            </svg>
+            <div class="flex flex-col leading-tight">
+                <span class="text-2xl font-bold bg-gradient-to-r from-secondary to-cyan-400 bg-clip-text text-transparent">DevResources</span>
+                <span class="text-xs text-white opacity-80">by Rodrigo Paz</span>
+            </div>
+        </div>
+        
+        <!-- Menú para desktop (hidden en móviles) -->
+        <div class="hidden md:flex space-x-8 items-center">
+            <!-- <a href="#" class="text-gray-300 hover:text-white transition-colors">Inicio</a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">Recursos</a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">Comunidad</a>
+            <a href="#" class="text-gray-300 hover:text-white transition-colors">Precios</a> -->
+            <a href="login.html" class="ml-4 px-6 py-2 bg-gradient-to-r from-secondary to-cyan-500 rounded-full text-white font-medium hover:opacity-90 transition-opacity">
+                Ingresar
+            </a>
+        </div>
+        
+        <!-- Menú móvil -->
+        <div class="md:hidden flex items-center">
+            <a href="login.html" class="mr-4 px-4 py-1 bg-gradient-to-r from-secondary to-cyan-500 rounded-full text-white font-medium hover:opacity-90 transition-opacity text-sm">
+                Ingresar
+            </a>
+            <!-- <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button> -->
+        </div>
+        
+        <!-- Menú desplegable móvil (hidden por defecto) -->
+        <!-- <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 right-0 bg-gray-900 z-50 py-4 px-6 shadow-lg">
+            <div class="flex flex-col space-y-4">
+                <a href="#" class="text-gray-300 hover:text-white transition-colors py-2 border-b border-gray-800">Inicio</a>
+                <a href="#" class="text-gray-300 hover:text-white transition-colors py-2 border-b border-gray-800">Recursos</a>
+                <a href="#" class="text-gray-300 hover:text-white transition-colors py-2 border-b border-gray-800">Comunidad</a>
+                <a href="#" class="text-gray-300 hover:text-white transition-colors py-2">Precios</a>
+            </div>
+        </div> -->
+    </nav>
+    <!-- Hero Section -->
+    <section id="hero" class="container mx-auto px-6 py-20 md:py-32">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
+                    Accede a los mejores <span class="gradient-text">recursos</span> para desarrolladores
+                </h1>
+                <p class="text-lg text-gray-400 mb-8 max-w-lg">
+                    Descarga PDFs exclusivos, accede a videos tutoriales premium y únete a una comunidad de desarrolladores apasionados.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button onclick="selectInputName()" class="px-8 py-3 bg-gradient-to-r from-secondary to-cyan-500 rounded-full text-white font-medium hover:opacity-90 transition-opacity animate-pulse">
+                        Comenzar ahora
+                    </button>
+                    <button onclick="scrollToResources()" class="px-8 py-3 border border-gray-700 rounded-full text-white font-medium hover:bg-gray-800/50 transition-colors">
+                        Ver recursos
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-1/2 relative">
+                <div class="relative max-w-md mx-auto">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-secondary to-cyan-500 rounded-2xl opacity-20 blur-lg"></div>
+                    <div class="relative bg-gray-900/80 backdrop-blur-sm rounded-xl p-8 shadow-2xl border border-gray-800">
+                        <h2 class="text-2xl font-bold mb-6 text-center">Regístrate para acceder</h2>
+                        <form id="register-form" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Nombre completo</label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" placeholder="Tu nombre">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Correo electrónico</label>
+                                <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" placeholder="tu@email.com">
+                            </div>
+                            <div>
+                                <label for="password" class="block text-sm font-medium text-gray-300 mb-1">Contraseña</label>
+                                <div class="relative">
+                                    <input type="password" id="password" name="password" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent" placeholder="••••••••">
+                                    <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="terms" name="terms" type="checkbox" required class="w-4 h-4 text-secondary bg-gray-800 border-gray-700 rounded focus:ring-secondary">
+                                <label for="terms" class="ml-2 text-sm text-gray-400">Acepto los <a href="#" class="text-secondary hover:underline">términos y condiciones</a></label>
+                            </div>
+                            <button type="submit" class="w-full py-3 bg-gradient-to-r from-secondary to-cyan-500 rounded-lg text-white font-medium hover:opacity-90 transition-opacity">
+                                Crear cuenta
+                            </button>
+                        </form>
+                        <p class="mt-4 text-sm text-center text-gray-400">
+                            ¿Ya tienes una cuenta? <a href="login.html" class="text-secondary hover:underline">Inicia sesión</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="container mx-auto px-6 py-20">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Qué obtendrás al registrarte</h2>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto">Acceso inmediato a nuestra biblioteca de recursos premium para desarrolladores</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-gray-800 hover:border-secondary transition-colors group">
+                <div class="w-14 h-14 bg-gray-800 rounded-lg flex items-center justify-center mb-6 group-hover:bg-secondary transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">PDFs Exclusivos</h3>
+                <p class="text-gray-400">Guías detalladas, cheatsheets y documentación avanzada en formato descargable.</p>
+            </div>
+            
+            <div class="bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-gray-800 hover:border-secondary transition-colors group">
+                <div class="w-14 h-14 bg-gray-800 rounded-lg flex items-center justify-center mb-6 group-hover:bg-secondary transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Videos Tutoriales</h3>
+                <p class="text-gray-400">Acceso a nuestra colección privada de videos en YouTube con tutoriales avanzados.</p>
+            </div>
+            
+            <div class="bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-gray-800 hover:border-secondary transition-colors group">
+                <div class="w-14 h-14 bg-gray-800 rounded-lg flex items-center justify-center mb-6 group-hover:bg-secondary transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Código Comentado</h3>
+                <p class="text-gray-400">Accede a repositorios con código detalladamente comentado para que aprendas las mejores prácticas y técnicas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Preview -->
+    <section id="recursos" class="container mx-auto px-6 py-20 bg-gradient-to-br from-gray-900/50 to-primary rounded-3xl my-12">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Algunos de nuestros recursos</h2>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto">Esto es solo una muestra de lo que encontrarás al registrarte</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- PDF Card -->
+            <div class="bg-gray-900/80 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-800 hover:border-secondary transition-colors group">
+                <div class="h-48 bg-gradient-to-r from-cyan-900/30 to-secondary/30 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 text-secondary group-hover:scale-110 transition-transform">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg">Guía Avanzada de Tailwind CSS</h3>
+                        <span class="text-xs bg-gray-800 text-secondary px-2 py-1 rounded">PDF</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Aprende técnicas avanzadas y mejores prácticas con Tailwind CSS.</p>
+                    <button onclick="scrollToFormulario()" class="text-xs text-secondary hover:underline flex items-center">
+                        Registrate para descargar
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 ml-1">
+                            <path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Video Card -->
+            <div class="bg-gray-900/80 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-800 hover:border-secondary transition-colors group">
+                <div class="h-48 bg-gradient-to-r from-cyan-900/30 to-secondary/30 flex items-center justify-center relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 text-secondary group-hover:scale-110 transition-transform">
+                        <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                    </svg>
+                    <div class="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-2 py-1 rounded">15:24</div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg">Animaciones con Framer Motion</h3>
+                        <span class="text-xs bg-gray-800 text-secondary px-2 py-1 rounded">Video</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Domina las animaciones en React con esta guía práctica.</p>
+                    <button onclick="scrollToFormulario()" class="text-xs text-secondary hover:underline flex items-center">
+                        Registrate para ver
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 ml-1">
+                            <path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- PDF Card -->
+            <div class="bg-gray-900/80 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-800 hover:border-secondary transition-colors group">
+                <div class="h-48 bg-gradient-to-r from-cyan-900/30 to-secondary/30 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 text-secondary group-hover:scale-110 transition-transform">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-lg">Patrones de Diseño en React</h3>
+                        <span class="text-xs bg-gray-800 text-secondary px-2 py-1 rounded">PDF</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Los mejores patrones para construir aplicaciones React escalables.</p>
+                    <button onclick="scrollToFormulario()" class="text-xs text-secondary hover:underline flex items-center">
+                        Registrate para descargar
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 ml-1">
+                            <path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-16">
+            <button onclick="scrollToFormulario()" class="px-8 py-3 bg-gradient-to-r from-secondary to-cyan-500 rounded-full text-white font-medium hover:opacity-90 transition-opacity">
+                Ver todos los recursos
+            </button>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="container mx-auto px-6 py-20">
+        <div class="bg-gradient-to-r from-gray-900 to-primary rounded-2xl p-8 md:p-12 border border-gray-800 relative overflow-hidden">
+            <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-secondary opacity-10 blur-xl"></div>
+            <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-cyan-500 opacity-10 blur-xl"></div>
+            
+            <div class="relative z-10 text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Listo para llevar tus habilidades al siguiente nivel?</h2>
+                <p class="text-lg text-gray-400 mb-8">Regístrate ahora y obtén acceso inmediato a todos nuestros recursos premium para desarrolladores.</p>
+                <button onclick="scrollToFormulario()" class="px-8 py-3 bg-gradient-to-r from-secondary to-cyan-500 rounded-full text-white font-medium hover:opacity-90 transition-opacity animate-bounce">
+                    Comenzar ahora
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900/50 backdrop-blur-sm border-t border-gray-800">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-1">  <!-- Cambiado mb-4 a mb-1 para mejor espaciado -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-secondary">
+                            <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="flex flex-col leading-tight">  <!-- Contenedor flex-col para alinear verticalmente -->
+                            <span class="text-xl font-bold bg-gradient-to-r from-secondary to-cyan-400 bg-clip-text text-transparent">DevResources</span>
+                            <span class="text-[0.7rem] text-white opacity-70 tracking-tight">by Rodrigo Paz</span>  <!-- Texto más pequeño y ajustado -->
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm mt-2">Los mejores recursos para desarrolladores modernos.</p>  <!-- Añadido mt-2 para espaciado -->
+                </div>
+                
+                <div>
+                    <h3 class="text-gray-300 font-medium mb-4">Recursos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">PDFs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Videos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Plantillas</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Cheatsheets</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-gray-300 font-medium mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacidad</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Términos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Cookies</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Licencias</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 DevResources by Rodrigo Paz. Todos los derechos reservados.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script type="module">
+    // Importa solo los módulos necesarios
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword, 
+      updateProfile 
+    } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+    import { sendEmailVerification } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+  
+    // Configuración de Firebase (igual que antes)
+    const firebaseConfig = {
+      apiKey: "AIzaSyC-rqf8SPy8GSo6WoMPJThTwUH7DfU6-3k",
+      authDomain: "devresources-7ce8b.firebaseapp.com",
+      projectId: "devresources-7ce8b",
+      storageBucket: "devresources-7ce8b.appspot.com",
+      messagingSenderId: "223004107680",
+      appId: "1:223004107680:web:d22c39c7bfaae7910dfac5",
+      measurementId: "G-7332067SNG"
+    };
+  
+    // Inicialización
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app); // Obtiene el objeto de autenticación
+    const db = getFirestore();
+
+    // Animación simple para el formulario al aparecer
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('form');
+        form.classList.add('animate__animated', 'animate__fadeInUp');
+        
+        // Efecto hover para las tarjetas de recursos
+        const resourceCards = document.querySelectorAll('.group');
+        resourceCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.querySelector('svg').classList.add('animate__animated', 'animate__pulse');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.querySelector('svg').classList.remove('animate__animated', 'animate__pulse');
+            });
+        });
+
+        const btnVerRecursos = document.getElementById('btnVerRecursos');   
+    });
+
+        
+
+    // Manejo del formulario de registro
+    document.getElementById('register-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+  
+        // Obtener valores
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const termsChecked = document.getElementById('terms').checked;
+        
+        // Validaciones
+        if (!name || !email || !password) {
+            alert('Por favor completa todos los campos');
+            return;
+        }
+        
+        if (!termsChecked) {
+            alert('Debes aceptar los términos y condiciones');
+            return;
+        }
+        
+        if (password.length < 8) {
+            alert('La contraseña debe tener al menos 8 caracteres');
+            return;
+        }
+
+        // Deshabilita el botón
+        const submitButton = this.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.innerHTML = 'Creando cuenta... <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+
+        try {
+            // 1. Crear usuario en Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user; // ✅ Obtenemos el usuario
+
+            // 2. Actualizar perfil (nombre)
+            await updateProfile(user, { displayName: name });
+
+            // 3. Guardar datos en Firestore
+            await setDoc(doc(db, "users", user.uid), {
+                email: email,
+                name: name, // ✅ Guardamos el nombre también aquí
+                role: "user", // Rol por defecto
+                createdAt: new Date(),
+                lastLogin: new Date(),
+                provider: "email/password",
+            }).then(()=>{
+                console.log("Usuario guardado en Firestore");
+            }).catch((firestoreError)=>{
+                console.error("Error en Firestore", firestoreError);
+            });
+
+            // 4. Enviar email de verificación
+            await sendEmailVerification(user);
+            console.log("Email de verificación enviado");
+
+            // 5. Redirigir
+            alert('¡Registro exitoso! Por favor verifica tu correo electrónico.');
+            window.location.href = 'verify-email.html';    
+        } catch (error) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Crear cuenta';
+            
+            let message = "Error al registrar: ";
+            switch(error.code) {
+            case 'auth/email-already-in-use':
+                message += "Este email ya está registrado";
+                break;
+            case 'auth/invalid-email':
+                message += "Email inválido";
+                break;
+            case 'auth/weak-password':
+                message += "La contraseña debe tener al menos 8 caracteres";
+                break;
+            default:
+                message += error.message;
+            }
+            alert(message);
+        }
+    });
+
+  </script>
+
+
+<script>
+    
+    function scrollToFormulario() {
+        const formularioSection = document.getElementById('hero');
+            if (formularioSection) {
+                formularioSection.scrollIntoView({
+                    behavior: 'smooth', // Desplazamiento suave
+                    block: 'start'     // Alinea la sección al inicio de la pantalla
+                });
+
+                setTimeout(() => {
+                const inputNombre = document.getElementById('name');
+                inputNombre.focus(); // Enfoca el input
+                inputNombre.select(); // Selecciona el texto (si lo hay)
+            }, 500); // Ajusta el tiempo si el scroll es muy lento
+        }
+    }
+
+    function scrollToResources(){
+        const resourcesSection = document.getElementById('recursos');
+        if(resourcesSection){
+            resourcesSection.scrollIntoView(
+                {
+                    behavior: 'smooth',
+                    block:'start'
+                }
+            );
+        }
+    }
+
+    function selectInputName(){
+        const inputNombre = document.getElementById('name');
+        inputNombre.focus(); // Enfoca el input
+        inputNombre.select(); // Selecciona el texto (si lo hay)
+    }
+
+    // Mostrar/ocultar contraseña
+    document.getElementById('toggle-password').addEventListener('click', function() {
+        const passwordInput = document.getElementById('password');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.innerHTML = type === 'password' ? 
+            '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>' :
+            '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>';
+    });
+
+
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Cerrar el menú al hacer clic fuera de él
+    document.addEventListener('click', (event) => {
+        if (!mobileMenu.contains(event.target) && event.target !== mobileMenuButton) {
+            mobileMenu.classList.add('hidden');
+        }
+    });
+</script>
+</body>
+</html>

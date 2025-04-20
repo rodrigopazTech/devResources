@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifica tu Email - DevResources</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        .bg-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+<body class="bg-gradient min-h-screen flex items-center justify-center p-4">
+    <div class="card rounded-xl shadow-2xl p-8 max-w-md w-full animate__animated animate__fadeIn">
+        <div class="text-center mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <h1 class="text-2xl font-bold text-gray-800 mt-4">Verifica tu dirección de email</h1>
+        </div>
+
+        <div class="mb-6 text-center">
+            <p class="text-gray-600 mb-2">Hemos enviado un enlace de verificación a:</p>
+            <p class="font-medium text-indigo-600 text-lg" id="user-email">cargando...</p>
+            <p class="text-gray-600 mt-4">Por favor revisa tu bandeja de entrada y haz clic en el enlace para activar tu cuenta.</p>
+        </div>
+
+        <div class="space-y-4">
+            <button id="resend-btn" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-200 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                </svg>
+                Reenviar correo de verificación
+            </button>
+
+            <button id="logout-btn" class="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition duration-200 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+                </svg>
+                Cerrar sesión
+            </button>
+        </div>
+
+        <div class="mt-6 text-center text-sm text-gray-500">
+            <p>¿El correo no aparece? Revisa tu carpeta de spam o correo no deseado.</p>
+        </div>
+    </div>
+
+    <script type="module">
+        // Importaciones de Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { 
+            getAuth, 
+            sendEmailVerification, 
+            signOut,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyC-rqf8SPy8GSo6WoMPJThTwUH7DfU6-3k",
+            authDomain: "devresources-7ce8b.firebaseapp.com",
+            projectId: "devresources-7ce8b",
+            storageBucket: "devresources-7ce8b.appspot.com",
+            messagingSenderId: "223004107680",
+            appId: "1:223004107680:web:d22c39c7bfaae7910dfac5",
+            measurementId: "G-7332067SNG"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Elementos del DOM
+        const userEmailElement = document.getElementById('user-email');
+        const resendBtn = document.getElementById('resend-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+
+        // Obtener email de la URL o del usuario autenticado
+        const urlParams = new URLSearchParams(window.location.search);
+        const emailFromUrl = urlParams.get('email');
+
+        // Función para mostrar el email
+        function displayUserEmail() {
+            if (auth.currentUser) {
+                userEmailElement.textContent = auth.currentUser.email;
+            } else if (emailFromUrl) {
+                userEmailElement.textContent = emailFromUrl;
+            } else {
+                userEmailElement.textContent = "No se encontró dirección de email";
+                resendBtn.disabled = true;
+            }
+        }
+
+        // Función para verificar estado de autenticación
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                displayUserEmail();
+                startEmailVerificationCheck();
+            } else {
+                displayUserEmail();
+            }
+        });
+
+        // Reenviar email de verificación
+        resendBtn.addEventListener('click', async () => {
+            try {
+                if (!auth.currentUser) {
+                    throw new Error("No hay usuario autenticado");
+                }
+
+                resendBtn.disabled = true;
+                resendBtn.innerHTML = `
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Enviando...
+                `;
+
+                await sendEmailVerification(auth.currentUser);
+                showAlert("¡Correo de verificación reenviado con éxito!", "success");
+                
+            } catch (error) {
+                console.error("Error al reenviar email:", error);
+                showAlert(`Error: ${error.message}`, "error");
+            } finally {
+                resendBtn.disabled = false;
+                resendBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                    </svg>
+                    Reenviar correo de verificación
+                `;
+            }
+        });
+
+        // Cerrar sesión
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error("Error al cerrar sesión:", error);
+                showAlert(`Error al cerrar sesión: ${error.message}`, "error");
+            }
+        });
+
+        // Verificación automática del email
+        let verificationInterval;
+        function startEmailVerificationCheck() {
+            verificationInterval = setInterval(async () => {
+                try {
+                    await auth.currentUser.reload();
+                    if (auth.currentUser.emailVerified) {
+                        clearInterval(verificationInterval);
+                        showAlert("¡Email verificado con éxito! Serás redirigido.", "success");
+                        setTimeout(() => {
+                            window.location.href = 'dashboard-consulta.html';
+                        }, 1500);
+                    }
+                } catch (error) {
+                    console.error("Error verificando email:", error);
+                    clearInterval(verificationInterval);
+                }
+            }, 5000); // Verifica cada 5 segundos
+        }
+
+        // Mostrar alertas
+        function showAlert(message, type = 'success') {
+            // Aquí puedes implementar tu propio sistema de notificaciones
+            // Por ahora usamos alert() básico
+            alert(message);
+        }
+
+        // Limpiar intervalo al salir de la página
+        window.addEventListener('beforeunload', () => {
+            if (verificationInterval) {
+                clearInterval(verificationInterval);
+            }
+        });
+
+        // Inicializar
+        displayUserEmail();
+    </script>
+</body>
+</html>
