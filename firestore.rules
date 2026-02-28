@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Reglas para la colección 'users'
+    match /users/{userId} {
+      // Permite lectura si:
+      // - El usuario está autenticado
+      // - Y está leyendo su propio documento
+      allow read: if request.auth != null && 
+                   request.auth.uid == userId;
+
+      // Permite escritura si:
+      // - El usuario está autenticado
+      // - Es el dueño del documento
+      // - Y tiene el email verificado
+      allow write: if request.auth != null &&
+                   request.auth.uid == userId &&
+                   request.auth.token.email_verified == true;
+    }
+
+    // Ejemplo adicional para otros datos sensibles
+    match /privateData/{document} {
+      allow read, write: if request.auth != null &&
+                          request.auth.token.email_verified == true;
+    }
+  }
+}
